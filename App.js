@@ -13,7 +13,7 @@ const App = () => {
   return (
     <View>
       {forces.map(force => (
-        <Text key={force.id}>{force.title}</Text>
+        <Text key={force.id}>Hello {force.title}</Text>
       ))}
     </View>
   );
