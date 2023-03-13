@@ -1,36 +1,29 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, SafeAreaView} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {fetchForces} from './src/services/forces.service';
+import ForcesList from './src/screens/forces.list.js';
+import NeighbourhoodsList from './src/screens/neighbourhoods.list';
+import NeighbourhoodsDetails from './src/screens/neighbourhood.details';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [forces, setForces] = useState([]);
-
-  useEffect(() => {
-    setForces([]);
-    fetchForces().then(results => setForces(results));
-  }, []);
-
   return (
-    <SafeAreaView style={styles.container}>
-      {forces.map(force => (
-        <Text style={styles.text} key={force.id}>
-          Hello {force.title}
-        </Text>
-      ))}
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Forces List" component={ForcesList} />
+        <Stack.Screen
+          name="NeighbourhoodsDetails"
+          component={NeighbourhoodsDetails}
+        />
+        <Stack.Screen
+          name="NeighbourhoodsList"
+          component={NeighbourhoodsList}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: '500',
-    padding: 15,
-  },
-});
 
 export default App;
